@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./app.css";
 import CustomToolTip from './Components/tooltip';
 import AlertDialog from "./Components/dialouge";
+import { Container } from "@material-ui/core";
   
+
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -13,7 +15,9 @@ function App() {
   const [homeTeam , setNp] = React.useState({});
   const [homeTeamscore , setNp1] = React.useState({});
   const [visitorTeamscore , setvp2] = React.useState({});
-  const [visitorTeam , setVp] = React.useState({})
+  const [visitorTeam , setVp] = React.useState({});
+  const [date,dat]=React.useState({});
+  const [load,setLoad]=React.useState("block");
 
   const handleClickOpen = () => {
     console.log('true');
@@ -37,6 +41,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setTeams(data.data);
+        setLoad("none");
         return 1;
       })
       .catch(err => setError(err));
@@ -50,7 +55,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (teams.length <= 0) {
+    if (teams.length <=0) {
       getTeams();
     }
     if (games.length <= 0) {
@@ -63,23 +68,23 @@ function App() {
   return (
     <div className="container mt-5">
       {err ? (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           <strong>Error</strong> {err}
         </div>
       ) : (
         ""
       )}
-      <div class="nav-wrapper" id="headd"> NBA REPO</div>
+      <div className="nav-wrapper" id="headd"> NBA REPO</div>
       <div>
-        <div class="nav-wrapper">
+        <div className="nav-wrapper">
           <ul
-            class="nav nav-pills nav-fill flex-column flex-md-row"
+            className="nav nav-pills nav-fill flex-column flex-md-row"
             id="tabs-icons-text"
             role="tablist"
           >
-            <li class="nav-item">
+            <li className="nav-item">
               <a
-                class="nav-link mb-sm-3 mb-md-0 active"
+                className="nav-link mb-sm-3 mb-md-0 active"
                 id="tabs-icons-text-1-tab"
                 data-toggle="tab"
                 href="#tabs-icons-text-1"
@@ -90,7 +95,7 @@ function App() {
                 NBA Teams
               </a>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <a
                 class="nav-link mb-sm-3 mb-md-0"
                 id="tabs-icons-text-2-tab"
@@ -115,19 +120,24 @@ function App() {
               role="tabpanel"
               aria-labelledby="tabs-icons-text-1-tab"
             >
+              <h1 style={{display : load}}>Loading........</h1>
               <div class="container">
                 <div class="row">
-                  {teams.map((team , index) => {
+                  {
+                  teams.map((team , index) => {
                     // var x=team.full_name+" \n "+"city :"+team.city;
-                    return (
+                      return (
 
-                      <div key={index} style={{ padding: 30 }} class="col-sm-3">
-                        <CustomToolTip team_name={team.full_name + "("+team.abbreviation+")"} team_city={team.city} team_conference={team.conference} team_division={team.division} >
-                          <strong id="style">{team.name}</strong><br />
-                          <span id="division">{team.division}</span>
-                        </CustomToolTip>
-                    </div>
-                  );
+                        <div key={index} style={{ padding: 30 }} class="col-sm-3">
+                          <CustomToolTip team_name={team.full_name + "("+team.abbreviation+")"} team_city={team.city} team_conference={team.conference} team_division={team.division} >
+                            <strong id="style">{team.name}</strong><br />
+                            <span id="division">{team.division}</span>
+                          </CustomToolTip>
+                      </div>
+                    );
+                  
+                
+
                 })}
                 </div>
               </div>
@@ -140,7 +150,7 @@ function App() {
               role="tabpanel"
               aria-labelledby="tabs-icons-text-2-tab"
             >
-              <AlertDialog data={selgame} home_team={homeTeam} visitorTeam={visitorTeam} home_team_score={homeTeamscore} visitor_team_score={visitorTeamscore} handleClose={handleClose} open={open} />
+              <AlertDialog data={selgame} home_team={homeTeam} date={date} visitorTeam={visitorTeam}  home_team_score={homeTeamscore} visitor_team_score={visitorTeamscore} handleClose={handleClose} open={open} />
               <div class="container">
                 <div class="row">
                   {games.map((game,index) => {
@@ -166,6 +176,7 @@ function App() {
                           setNp1(game.home_team_score);
                           setvp2(game.visitor_team_score);
                           setVp(game.visitor_team);
+                          dat(game.date);
                           handleClickOpen();
                         }} style={{cursor : "pointer"}} >{gamedate}</strong>
                        

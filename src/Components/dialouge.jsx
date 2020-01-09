@@ -1,17 +1,19 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Typography} from '@material-ui/core';
-import {Link, RichText, Date} from 'prismic-reactjs';
+
 
 export default function AlertDialog(props) {
-  const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat","Sun"];
-  const months=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    
+  // const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat","Sun"];
+  // const months=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+  // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  // console.log("helooooooooooo");
+  // console.log(props);
   return (
     
     <div>
@@ -20,22 +22,20 @@ export default function AlertDialog(props) {
         onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth="290px"
       >
         <DialogTitle id="alert-dialog-title">
-        <Typography variant="h5" style={{color: "#f16d32", display: 'flex', justifyContent: 'center'}}>
-                    Game Description <br/>
-                   
-        </Typography>
-        <Typography variant="subheading" style={{ display: 'flex', justifyContent: 'center'}}>
-                        {/* {(new Date(props.date)).toLocaleDateString("latn", options)}
-                        {LocalDateTime localDateTime = LocalDateTime.parse({props.date})} */}
-                        
-                    </Typography>
+          <Typography variant="h4" style={{color: "#f16d32", display: 'flex', justifyContent: 'center'}}>
+                      Game Description<br/>
+          </Typography>            
+          <Typography style={{fontSize:19, display: 'flex', justifyContent: 'center'}}>                  
+          {(new Date(props.data.date)).toString()}
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          <Grid container justify="center" spacing="5" xs={12}>
-                    <Grid container item  xs={6}  spacing={0}> 
+          <Grid container justify="center" spacing={0} xs={12}>
+                    <Grid container item  xs={6}  spacing={4}> 
                     <Typography variant="h4">
                     <br/><br/> Home Team<br/><br/>
                             
@@ -55,7 +55,7 @@ export default function AlertDialog(props) {
             <br />
             <br /></Typography>  
             </Grid>
-            <Grid container item xs={6} spacing={0}>
+            <Grid container item xs={6} spacing={4}>
           <Typography variant="h4">
           <br/><br/> Visitor Team<br/><br/>
                         </Typography>
