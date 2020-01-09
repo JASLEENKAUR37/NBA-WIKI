@@ -9,11 +9,6 @@ import { Grid, Typography} from '@material-ui/core';
 
 
 export default function AlertDialog(props) {
-  // const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat","Sun"];
-  // const months=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
-  // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  // console.log("helooooooooooo");
-  // console.log(props);
   return (
     
     <div>

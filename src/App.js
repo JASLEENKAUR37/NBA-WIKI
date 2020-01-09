@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./app.css";
-import CustomToolTip from './Components/tooltip';
-import AlertDialog from "./Components/dialouge";
+import "./App.css";
+import CustomToolTip from './Components/Tooltip';
+import AlertDialog from "./Components/Dialouge";
 import { Container } from "@material-ui/core";
   
 
@@ -53,7 +53,7 @@ function App() {
       .then(data => setgames(data.data))
       .catch(err => setError(err));
   };
-
+//condition at which data can be retrived
   useEffect(() => {
     if (teams.length <=0) {
       getTeams();
@@ -66,6 +66,8 @@ function App() {
   });
 
   return (
+    //incase of an error
+    // main structure of the site
     <div className="container mt-5">
       {err ? (
         <div className="alert alert-danger" role="alert">
@@ -120,10 +122,10 @@ function App() {
               role="tabpanel"
               aria-labelledby="tabs-icons-text-1-tab"
             >
-              <h1 style={{display : load}}>Loading........</h1>
+              <h1 style={{display : load}}>Loading........</h1> 
               <div class="container">
                 <div class="row">
-                  {
+                  { /* data fetched from api is being loaded to the container */
                   teams.map((team , index) => {
                     // var x=team.full_name+" \n "+"city :"+team.city;
                       return (
@@ -153,6 +155,7 @@ function App() {
               <AlertDialog data={selgame} home_team={homeTeam} date={date} visitorTeam={visitorTeam}  home_team_score={homeTeamscore} visitor_team_score={visitorTeamscore} handleClose={handleClose} open={open} />
               <div class="container">
                 <div class="row">
+                
                   {games.map((game,index) => {
                     const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat","Sun"];
                     const months=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
