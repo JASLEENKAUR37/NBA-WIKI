@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./app.css";
 import CustomToolTip from './Components/tooltip';
 import AlertDialog from "./Components/dialouge";
+  
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -10,6 +11,8 @@ function App() {
   const [selgame , setGame] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [homeTeam , setNp] = React.useState({});
+  const [homeTeamscore , setNp1] = React.useState({});
+  const [visitorTeamscore , setvp2] = React.useState({});
   const [visitorTeam , setVp] = React.useState({})
 
   const handleClickOpen = () => {
@@ -28,7 +31,7 @@ function App() {
   const selNP = e =>{
     setNp(e);
   }
-
+// fetching of team data through api
   const getTeams = () => {
     fetch("https://www.balldontlie.io/api/v1/teams")
       .then(res => res.json())
@@ -38,7 +41,7 @@ function App() {
       })
       .catch(err => setError(err));
   };
-
+// fetching of games data through api
   const getGames = () => {
     fetch("https://www.balldontlie.io/api/v1/games")
       .then(res => res.json())
@@ -119,16 +122,10 @@ function App() {
                     return (
 
                       <div key={index} style={{ padding: 30 }} class="col-sm-3">
-                      {/* <Tooltip id="tooltip" placement="right"
-                       content={x} >
-                       
-                      <h4>{team.name}</h4>
-                      <span id="division">{team.division}</span>
-                      </Tooltip> */}
-                      <CustomToolTip team_name={team.full_name + "("+team.abbreviation+")"} team_city={team.city} team_conference={team.conference} team_division={team.division} >
+                        <CustomToolTip team_name={team.full_name + "("+team.abbreviation+")"} team_city={team.city} team_conference={team.conference} team_division={team.division} >
                           <strong id="style">{team.name}</strong><br />
                           <span id="division">{team.division}</span>
-                      </CustomToolTip>
+                        </CustomToolTip>
                     </div>
                   );
                 })}
@@ -143,7 +140,7 @@ function App() {
               role="tabpanel"
               aria-labelledby="tabs-icons-text-2-tab"
             >
-              <AlertDialog data={selgame} home_team={homeTeam} visitorTeam={visitorTeam} handleClose={handleClose} open={open} />
+              <AlertDialog data={selgame} home_team={homeTeam} visitorTeam={visitorTeam} home_team_score={homeTeamscore} visitor_team_score={visitorTeamscore} handleClose={handleClose} open={open} />
               <div class="container">
                 <div class="row">
                   {games.map((game,index) => {
@@ -166,6 +163,8 @@ function App() {
                         <strong  id="styles" onClick={()=>{
                           selectedGame(game)
                           selNP(game.home_team);
+                          setNp1(game.home_team_score);
+                          setvp2(game.visitor_team_score);
                           setVp(game.visitor_team);
                           handleClickOpen();
                         }} style={{cursor : "pointer"}} >{gamedate}</strong>

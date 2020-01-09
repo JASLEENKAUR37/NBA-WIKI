@@ -49,7 +49,7 @@ export default function AlertDialog(props) {
             <strong>Division: </strong>
             {props.home_team.division}<br />
             <strong>Home Team Score: </strong>
-            {props.home_team.home_team_score}
+            {props.home_team_score}
             <br/>
             <br />
             <br />
@@ -67,8 +67,8 @@ export default function AlertDialog(props) {
             {props.visitorTeam.conference}<br />
             <strong>Division: </strong>
             {props.visitorTeam.division}<br />
-            <strong>Home Team Score: </strong>
-            {props.visitorTeam.visitor_team_score}
+            <strong>Visitor Team Score: </strong>
+            {props.visitor_team_score}
             <br />
             <br />
             <br />
